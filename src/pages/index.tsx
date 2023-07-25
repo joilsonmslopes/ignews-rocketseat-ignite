@@ -1,29 +1,27 @@
-import { GetStaticProps } from "next";
-import Head from "next/head";
-import { SubscribeButton } from "../components/SubscribeButton";
-import { stripe } from "../services/stripe";
+/* eslint-disable @next/next/no-img-element */
+import { GetStaticProps } from 'next'
+import Head from 'next/head'
+import { SubscribeButton } from '../components/SubscribeButton'
+import { stripe } from '../services/stripe'
 
-import styles from "./home.module.scss";
+import styles from './home.module.scss'
 
-export const getStaticProps: GetStaticProps = async() => {
+export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1K79VII5eyll1s9bA8NzcOXY')
 
   const product = {
     priceId: price.id,
-    amount: new Intl.NumberFormat(
-      'en-US',
-      {
-        style: 'currency',
-        currency: 'USD',
-      }
-    ).format(price.unit_amount / 100)
+    amount: new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(price.unit_amount / 100),
   }
 
   return {
     props: {
-      product
+      product,
     },
-    revalidate: 60 * 60 * 24 // 24 hours
+    revalidate: 60 * 60 * 24, // 24 hours
   }
 }
 
@@ -34,7 +32,7 @@ interface HomeProps {
   }
 }
 
-export default function Home({product}: HomeProps) {
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
@@ -43,7 +41,9 @@ export default function Home({product}: HomeProps) {
       <main className={styles.contentContainer}>
         <section className={styles.hero}>
           <span>👏 Hey, welcome</span>
-          <h1>News about the <span>React</span> world.</h1>
+          <h1>
+            News about the <span>React</span> world.
+          </h1>
           <p>
             Get access to all the publications <br />
             <span>for {product.amount} month</span>

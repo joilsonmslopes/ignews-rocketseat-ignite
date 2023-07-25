@@ -19,25 +19,17 @@ interface PostsProps {
 
 export default function Posts({ posts }: PostsProps) {
   return (
-    <>
-      <Head>
-        <title>Posts | Ignews</title>
-      </Head>
-
-      <main className={style.container}>
-        <div className={style.posts}>
-          {posts.map((post) => (
-            <Link key={post.slug} href={`/posts/${post.slug}`}>
-              <a>
-                <time>{post.updatedAt}</time>
-                <strong>{post.title}</strong>
-                <p>{post.excerpt}</p>
-              </a>
-            </Link>
-          ))}
-        </div>
-      </main>
-    </>
+    <main className={style.container}>
+      <div className={style.posts}>
+        {posts.map((post) => (
+          <Link key={post.slug} href={`/posts/${post.slug}`} passHref>
+            <time>{post.updatedAt}</time>
+            <strong>{post.title}</strong>
+            <p>{post.excerpt}</p>
+          </Link>
+        ))}
+      </div>
+    </main>
   )
 }
 

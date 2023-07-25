@@ -16,16 +16,22 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   return (
-    <main className={styles.container}>
-      <article className={styles.post}>
-        <h1>{post.title}</h1>
-        <time>{post.updatedAt}</time>
-        <div
-          className={styles.postContent}
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      </article>
-    </main>
+    <>
+      <Head>
+        <title>{post.title} | Ignews</title>
+      </Head>
+
+      <main className={styles.container}>
+        <article className={styles.post}>
+          <h1>{post.title}</h1>
+          <time>{post.updatedAt}</time>
+          <div
+            className={styles.postContent}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+        </article>
+      </main>
+    </>
   )
 }
 
